@@ -12,6 +12,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - uses: actions/checkout@v4
@@ -26,8 +27,8 @@ jobs:
       - name: Sync files to S3
         run: |
           aws s3 sync . s3://tesfamikael-github-actions-site \
-          --exclude ".git/*" \
-          --exclude ".github/*"
+            --exclude ".git/*" \
+            --exclude ".github/*"
 
       - name: Deployment Complete
         run: |
