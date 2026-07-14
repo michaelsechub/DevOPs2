@@ -1,51 +1,38 @@
-name: Python Tests
+name: First Workflow
 
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        python-version: ['3.9', '3.10', '3.11']
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Cache pip packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
-
-      - name: Install dependencies
+      - name: Print commit message
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          echo "Commit message: ${{ github.event.head_commit.message }}"
+          echo "Commit author: ${{ github.event.head_commit.author.name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Runner OS: ${{ runner.os }}"
 
-      - name: Run tests
-        run: pytest tests/ -v
+      - name: List files
+        run: ls -la
 
-      - name: Run linter
+      - name: Create file
         run: |
-          pip install flake8
-          flake8 . --count --max-complexity=10 --statistics
+          echo "Workflow ran at $(date)" > workflow-info.txt
+          cat workflow-info.txt
 
-      - name: Upload test results
-        if: always()
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-${{ matrix.python-version }}
-          path: |
-            .pytest_cache/
-            .coverage
+          name: workflow-info
+          path: workflow-info.txt
