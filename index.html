@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deployed from GitHub Actions</title>
+
     <style>
-        body{
-            font-family:Arial,sans-serif;
-            text-align:center;
-            margin-top:50px;
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
         }
 
-        .badge{
-            background:#2c3e50;
-            color:white;
-            padding:10px;
-            border-radius:5px;
-            display:inline-block;
+        .badge {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
         }
     </style>
 </head>
 
 <body>
 
-<h1>🚀 Deployed from GitHub Actions!</h1>
+    <h1>🚀 Deployed from GitHub Actions!</h1>
 
-<div class="badge">
-    <p>Last deployed:
-        <span id="deploy-time"></span>
-    </p>
-</div>
+    <div class="badge">
+        <p>Last deployed: <span id="deploy-time"></span></p>
+    </div>
 
-<p>This website was automatically deployed using GitHub Actions CI/CD.</p>
+    <p>This website was automatically deployed using GitHub Actions CI/CD.</p>
 
-<script>
-document.getElementById("deploy-time").innerText =
-new Date().toLocaleString();
-</script>
+    <script>
+        document.getElementById("deploy-time").innerText =
+            new Date().toLocaleString();
+    </script>
 
 </body>
 </html>
